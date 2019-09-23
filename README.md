@@ -74,81 +74,45 @@ This submission should be accompanied by:
     * ~/OneDrive/Desktop
 - [ ] When you're ready, begin coding in the `DisplayCipher.java` file located in the `/src/main/java/cipher/` directory.
 
-## Using GatorGrader
+## GatorGrader
 
-GatorGrader is a software utility actively developed and maintained by students in consultation with Allegheny faculty, Prof. Kapfhammer. This software allows you to check your work _before_ turning it in, so that you know--at any point--what your grade would be on an assignment if turned in at the moment you run GatorGrader.
+### Docker `container`
 
-When you turn assignments in for this class, the action triggers a "build" in a utility called [Travis](https://travis-ci.com). One of the steps it includes is running GatorGrader against the submitted code. There aren't any hidden criteria; the grader will grade the assignment the same way, regardless of who run it because it is based on files which are contained _in the very repository you commit_. Once a repository is cloned, grading critieria will never change.
+If you do not already have the GatorGrader `container`, in a new terminal or Docker Quickstart Terminal, type `docker pull gatoreducator/dockagator` to download the correct `container`.
 
-### Installation
+In the last lab session, we were able to get Docker `container` versions of GatorGrader working! That means that everyone can choose to use the `container` if they'd like. Here are a couple of ways to do it.
 
-#### Mac
+#### Running GatorGrader directly on `container` start
 
-- [ ] In a terminal window, type `docker pull gatoreducator/dockagator`.
-* This will contact Docker Hub to download the GatorGrade docker `image`.
-- [ ] Type `docker images`
-* The newly-acquired image should appear in the list as `gatoreducator/dockagator`
-- [ ] To run the GatorGrader, `cd` to the main directory of your repository and type:
-```
-docker run -it --mount type=bind,source="$(pwd)",target="/" --hostname GatorGrader gatoreducator/dockagator
-```
-* You should now be in the GatorGrader `container`.
-- [ ] Type `gradle build` to begin setting up your assignment for grading.
-- [ ] When the above command completes, type `gradle grade`
-* This will begin the grading process.
-- [ ] When the grading process completes, call the professor over to discuss.
-
-#### Windows
-
-For those Windows users interested in using a Docker image to implement GatorGrader, please [book student hours](https://cs.allegheny.edu/sites/dluman) to discuss the process with me.
-
-**Note:** For all of the following steps, you will need administrator privileges to install these programs.
-
-##### Install `gradle`
-
-Using the simplest definition, Gradle is a build automation tool. In plain terms, it's a program that orchestrates complex processes so that you, the end user, don't have to do them. 
-
-The faculty have written scripts to automate the grading process--a process which can take many, many individual commands to complete. As you'll see, there are really only three things you need to do when running a `gradle` grading process instead of the many that the process may actually require. The tool makes things easy for you.
-
-- [ ] In a `cmd` window, use `choco` to install Gradle by typing `choco install gradle -y`
-- [ ] Once complete, test your installation by typing `gradle --version`
-* A typical response would be similar to: `Gradle` followed by a version number
-
-##### Install `python` and `ruby`
-
-If you're not familiar with these two languages, Python and Ruby are 3<sup>rd</sup> generation languages--similar to Java. Some of you may have experience with them while others of you may never have heard of them. You do not need to know anything about either in this course except that they need to exist on your computer to run GatorGrader. 
-
-If you're so inclined, you might begin to tinker in these languages to learn a bit more about how different languages operate. Python and Ruby, while similar to each other, are different from Java.
-
-- [ ] Use `choco` to install Python by typing `choco install python -y`
-- [ ] Use `choco` to install Ruby by typing `choco install ruby -y`
-
-To facilitate GatorGrader finding the right `python` command, we need to use `mklink` to create a "symbolic link" (a.k.a. a fake file).
-
-- [ ] In the same `cmd` window, type:
-```
-mklink "c:\Python37\python3.exe" "c:\Python37\python.exe"
-```
-
-We're in the home stretch.
-
-- [ ] Close the current `cmd` window and open another with administrative privileges
-- [ ] Use `pip`, a "package manager" like `choco` to install a couple of tools:
+* Be sure that you are in the main directory of your practicals repository when running these commands, or you'll certainly experience issues!
+* Remember that if you run `ls -la`, you should see a `.git` folder if you're in the main repository folder.
+* To make sure you're in the right repository, run a `pwd` command.
+    * If you recieve the expected path, you're in the right place. Else, find your way to the right location.
 
 ```
-pip install proselint
+docker run -it --mount type=bind,source="$(pwd)",target="/project" --hostname GatorGrader gatoreducator/dockagator
 ```
 
-```
-pip install pipenv
-```
-
-* `pip` is exclusive to Python, and installs extensions and applications for the Python language.
-
-- [ ] Use `gem`, another "package manager" to install one tool:
+#### Run `gradle` commands in the container`
 
 ```
-gem install mdl
+docker run -it --mount type=bind,source="$(pwd)",target="/project" --hostname GatorGrader gatoreducator/dockagator /bin/bash
 ```
 
-- [ ] When you're ready to grade, either call the professor over (if we're still in the lab session), or [schedule student hours](https://cs.allegheny.edu/sites/dluman) to discuss the process.
+- [ ] To `build` your Java work, type `gradle build` at the `command` prompt and press the `Enter` key.
+- [ ] To `grade` your Java work, type `gradle grade` at the `command` prompt and press the `Enter` key.
+
+### Using `gradle` commands directly
+
+- [ ] In a terminal, ensure you're in the main folder of your practical repository and type `gradle build`
+- [ ] After the `command` completes successfully, type `gradle grade`
+
+## `commit` your work
+
+When you've finished your work: remember that there are three (3) steps to submitting a `git` repository: to "pack," to "label," and to "ship."
+
+* Note: attempt all of these from the main directory of the repository.
+
+- [ ] To "pack" the submission: `git add .`
+- [ ] To "label" the submission: `git commit -m "{ADD MESSAGE DESCRIPTING PURPOSE OF COMMIT HERE}"`
+- [ ] To "ship" the submission: `git push`
